@@ -6,9 +6,7 @@ const { getReactRoot } = require('./utils');
  * @param {*} reactRoot
  */
 exports.waitForReact = (timeout = 10000, reactRoot) => {
-  const file = require.hasOwnProperty('resolve')
-    ? require.resolve('resq')
-    : 'node_modules/resq/dist/index.js';
+  const file = 'node_modules/resq/dist/index.js';
 
   cy.readFile(file, 'utf8', {
     log: false,
@@ -37,9 +35,8 @@ exports.waitForReact = (timeout = 10000, reactRoot) => {
  * @param {*} timeout
  */
 exports.waitForReactPlayerWeb = (timeout = 10000) => {
-  const file = require.hasOwnProperty('resolve')
-    ? require.resolve('resq')
-    : 'node_modules/resq/dist/index.js';
+
+  const file = 'node_modules/resq/dist/index.js';
 
   cy.readFile(file, 'utf8', {
     log: false,
