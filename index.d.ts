@@ -30,6 +30,18 @@ declare namespace Cypress {
     waitForReact(timeout?: number, reactRoot?: string): void;
 
     /**
+     * Wait until the React's component tree is loaded in the player web. Call `cy.waitForReactPlayerWeb()` in your test's `before` hook.
+     * @example
+     * before(() => {
+     *  cy.visit('http://localhost:3000/myApp');
+     *  cy.waitForReactPlayerWeb();
+     * });
+     *
+     * @param timeout
+     */
+    waitForReactPlayerWeb(timeout?: number): void;
+
+    /**
      * Get react elements by component, props and states
      * @see https://github.com/abhinaba-ghosh/cypress-react-selector/blob/master/cypress/integration/react-selector.spec.js
      * @example
