@@ -1,4 +1,4 @@
-const { waitForReact, waitForReactPlayerWeb } = require('./src/resqInjector');
+const { waitForReact, waitForReactIframe } = require('./src/resqInjector');
 const {
   react,
   getReact,
@@ -9,7 +9,7 @@ const {
 
 // add cypress custom commands
 Cypress.Commands.add('waitForReact', waitForReact);
-Cypress.Commands.add('waitForReactPlayerWeb', waitForReactPlayerWeb);
+Cypress.Commands.add('waitForReactIframe', waitForReactIframe);
 Cypress.Commands.add('react', { prevSubject: ['optional', 'element'] }, react);
 Cypress.Commands.add('getReact', { prevSubject: 'optional' }, getReact);
 Cypress.Commands.add('getProps', { prevSubject: true }, getProps);

@@ -1,3 +1,5 @@
+import { waitToLoadReactInIframe } from '../../resq/src/waitToLoadReact';
+
 const { getReactRoot } = require('./utils');
 
 /**
@@ -6,7 +8,9 @@ const { getReactRoot } = require('./utils');
  * @param {*} reactRoot
  */
 exports.waitForReact = (timeout = 10000, reactRoot) => {
-  const file = 'node_modules/resq/dist/index.js';
+  const file = require.hasOwnProperty('resolve')
+    ? require.resolve('resq')
+    : 'node_modules/resq/dist/index.js';
 
   cy.readFile(file, 'utf8', {
     log: false,
@@ -33,10 +37,13 @@ exports.waitForReact = (timeout = 10000, reactRoot) => {
 /**
  * wait for react to be loaded
  * @param {*} timeout
+ * @param iFrameElSelector
+ * @param reactRoot
  */
-exports.waitForReactPlayerWeb = (timeout = 10000) => {
-
-  const file = 'node_modules/resq/dist/index.js';
+exports.waitForReactIframe = (timeout = 10000, iFrameElSelector, reactRoot) => {
+  const file = require.hasOwnProperty('resolve')
+    ? require.resolve('resq')
+    : 'node_modules/resq/dist/index.js';
 
   cy.readFile(file, 'utf8', {
     log: false,
@@ -44,14 +51,14 @@ exports.waitForReactPlayerWeb = (timeout = 10000) => {
     cy.window({ log: false }).then({ timeout: timeout }, (win) => {
       win.eval(script);
       return new Cypress.Promise.resolve(
-        win.resq.waitToLoadReactPlayerWeb(timeout)
+        win.resq.waitToLoadReactInIframe(timeout, iFrameElSelector, reactRoot)
       )
         .then(() => {
           cy.log('[cypress-react-selector] loaded');
         })
         .catch((err) => {
           throw new Error(
-            `[cypress-react-selector]. It is not valid root for your application. \n
+            `[cypress-react-selector] root found as ${reactRoot} within ${iFrameElSelector}. It is not valid root for your application. \n
               > Make sure to declare root selector as a configuration [recommended]\n
               > or Pass as a parameter to waitForReact() method`
           );
