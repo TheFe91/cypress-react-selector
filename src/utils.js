@@ -65,6 +65,22 @@ exports.getReactRoot = (root) => {
 };
 
 /**
+ * get the root element
+ * @param {*} iframeElement
+ */
+exports.getReactIframeElement = (iframeElement) => {
+  if (iframeElement) {
+    return iframeElement;
+  }
+
+  if (Cypress.env('cypress-react-selector')) {
+    return Cypress.env('cypress-react-selector').iframeElement;
+  }
+
+  return undefined;
+};
+
+/**
  * get runtime options
  */
 exports.getDefaultCommandOptions = (reactOpts) => {

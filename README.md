@@ -1,13 +1,16 @@
-# cypress-react-selector
+# Enhanced CRS (Enhanced CypressReactSelector)
 
-[![Build Status](https://circleci.com/gh/abhinaba-ghosh/cypress-react-selector.svg?style=shield&branch-=master)](https://app.circleci.com/pipelines/github/abhinaba-ghosh/cypress-react-selector)
-[![NPM release](https://img.shields.io/npm/v/cypress-react-selector.svg 'NPM release')](https://www.npmjs.com/package/cypress-react-selector)
+[![NPM release](https://img.shields.io/npm/v/enhanced-crs.svg 'NPM release')](https://www.npmjs.com/package/enhanced-crs)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![NPM Downloads](https://img.shields.io/npm/dt/cypress-react-selector.svg?style=flat-square)](https://www.npmjs.com/package/cypress-react-selector)
+[![NPM Downloads](https://img.shields.io/npm/dt/enhanced-crs.svg?style=flat-square)](https://www.npmjs.com/package/enhanced-crs)
 
-_cypress-react-selector_ is a lightweight plugin to help you to locate web elements in your REACT app using components, props and states. This extension allow you to select elements in a way that is native to React. Designed to help developers in component, integration and E2E testing.
+This is a fork of [abhinaba-ghosh/enhanced-crs](https://www.npmjs.com/package/enhanced-crs)
 
-Internally, cypress-react-selector uses a library called [resq](https://github.com/baruchvlz/resq) to query React's VirtualDOM in order to retrieve the nodes.
+The main goal of this fork is allowing users to select elements in a React application that lives into an iFrame
+
+_Enhanced CRS_ is a lightweight plugin to help you to locate web elements in your REACT app using components, props and states. This extension allow you to select elements in a way that is native to React. Designed to help developers in component, integration and E2E testing.
+
+Internally, Enhanced CRS uses a library called [enhanced-resq](https://github.com/TheFe91/resq) to query React's VirtualDOM in order to retrieve the nodes.
 
 ## Table of Contents
 
@@ -40,6 +43,10 @@ Internally, cypress-react-selector uses a library called [resq](https://github.c
 
 ```sh
 npm i --save cypress-react-selector
+
+or
+
+yarn add cypress-react-selector
 ```
 
 ### Include the commands
@@ -108,9 +115,18 @@ before(() => {
 });
 ```
 
+If you want to load a React application living into an iFrame you can do it by typing:
+
+```js
+before(() => {
+  cy.visit('http://localhost:3000/myApp');
+  cy.waitForReactInIframe(1000, 'html > body > div > iframe', '#root'); // 1000 is the timeout in milliseconds, you can provide as per AUT
+});
+```
+
 _NOTE_ : The Best Configuration for React root is to declare it as an `env` variable
 
-We always recommend to declare the `react root` as a `env` variable in the `cypress.json` file. It is a best approach rather than passing react root information to `waitForReact` method every time.
+We always recommend declaring the `react root` and the `iframe element` as a `env` variable in the `cypress.json` file. It is a best approach rather than passing react root information to `waitForReact` method every time.
 
 As an example:
 
@@ -118,7 +134,8 @@ As an example:
 {
   "env": {
     "cypress-react-selector": {
-      "root": "#root"
+      "root": "#root",
+      "iframeElement": "html > body > div > iframe"
     }
   }
 }
@@ -130,6 +147,13 @@ If you choose to declare the `root selector` as a `configuration`, then you will
 before(() => {
   cy.visit('http://localhost:3000/myApp');
   cy.waitForReact();
+});
+```
+
+```js
+before(() => {
+  cy.visit('http://localhost:3000/myApp');
+  cy.waitForReactIframe();
 });
 ```
 
@@ -326,7 +350,7 @@ cy.getReact('MyComponent', { props: { name: 'Bob' } })
 
 - Credit goes to [Gleb Bahmutov](https://github.com/bahmutov) for drafting how `cypress-react-selector` can be used in `react component testing` [here](https://github.com/cypress-io/cypress/blob/develop/npm/react/cypress/component/advanced/react-book-example/src/components/ProductsList.spec.js)
 
-- Credit goes to [gregfenton](https://github.com/gregfenton) for presenting a `formik form` example that uses `Cypress-React-Selector`. Checkout the work [here](https://github.com/gregfenton/example-cypress-react-selector-formik)
+- Credit goes to [gregfenton](https://github.com/gregfenton) for presenting a `formik form` example that uses `cypress-react-selector`. Checkout the work [here](https://github.com/gregfenton/example-cypress-react-selector-formik)
 
 [If you have a cool project, feel free to portray here]
 
