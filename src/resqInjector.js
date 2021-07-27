@@ -7,8 +7,8 @@ const { getReactRoot, getReactIframeElement } = require('./utils');
  */
 exports.waitForReact = (timeout = 10000, reactRoot) => {
   const file = require.hasOwnProperty('resolve')
-    ? require.resolve('resq')
-    : 'node_modules/resq/dist/index.js';
+    ? require.resolve('enhanced-resq')
+    : 'node_modules/enhanced-resq/dist/index.js';
 
   cy.readFile(file, 'utf8', {
     log: false,
@@ -16,7 +16,7 @@ exports.waitForReact = (timeout = 10000, reactRoot) => {
     cy.window({ log: false }).then({ timeout: timeout }, (win) => {
       win.eval(script);
       return new Cypress.Promise.resolve(
-        win.resq.waitToLoadReact(timeout, getReactRoot(reactRoot))
+        win.enhanced-resq.waitToLoadReact(timeout, getReactRoot(reactRoot))
       )
         .then(() => {
           cy.log('[cypress-react-selector] loaded');
@@ -40,8 +40,8 @@ exports.waitForReact = (timeout = 10000, reactRoot) => {
  */
 exports.waitForReactIframe = (timeout = 10000, iframeElSelector, reactRoot) => {
   const file = require.hasOwnProperty('resolve')
-    ? require.resolve('resq')
-    : 'node_modules/resq/dist/index.js';
+    ? require.resolve('enhanced-resq')
+    : 'node_modules/enhanced-resq/dist/index.js';
 
   cy.readFile(file, 'utf8', {
     log: false,
@@ -49,7 +49,7 @@ exports.waitForReactIframe = (timeout = 10000, iframeElSelector, reactRoot) => {
     cy.window({ log: false }).then({ timeout: timeout }, (win) => {
       win.eval(script);
       return new Cypress.Promise.resolve(
-        win.resq.waitToLoadReactInIframe(timeout, getReactIframeElement(iframeElSelector), getReactRoot(reactRoot))
+        win.enhanced-resq.waitToLoadReactInIframe(timeout, getReactIframeElement(iframeElSelector), getReactRoot(reactRoot))
       )
         .then(() => {
           cy.log('[cypress-react-selector] loaded');
