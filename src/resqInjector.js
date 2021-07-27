@@ -16,7 +16,7 @@ exports.waitForReact = (timeout = 10000, reactRoot) => {
     cy.window({ log: false }).then({ timeout: timeout }, (win) => {
       win.eval(script);
       return new Cypress.Promise.resolve(
-        win.enhanced-resq.waitToLoadReact(timeout, getReactRoot(reactRoot))
+        win.resq.waitToLoadReact(timeout, getReactRoot(reactRoot))
       )
         .then(() => {
           cy.log('[cypress-react-selector] loaded');
@@ -49,7 +49,7 @@ exports.waitForReactIframe = (timeout = 10000, iframeElSelector, reactRoot) => {
     cy.window({ log: false }).then({ timeout: timeout }, (win) => {
       win.eval(script);
       return new Cypress.Promise.resolve(
-        win.enhanced-resq.waitToLoadReactInIframe(timeout, getReactIframeElement(iframeElSelector), getReactRoot(reactRoot))
+        win.resq.waitToLoadReactInIframe(timeout, getReactIframeElement(iframeElSelector), getReactRoot(reactRoot))
       )
         .then(() => {
           cy.log('[cypress-react-selector] loaded');
