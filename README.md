@@ -42,11 +42,11 @@ Internally, Enhanced CRS uses a library called [enhanced-resq](https://github.co
 ### Add as a dependency:
 
 ```sh
-npm i --save cypress-react-selector
+npm i --save enhanced-crs
 
 or
 
-yarn add cypress-react-selector
+yarn add enhanced-crs
 ```
 
 ### Include the commands
@@ -54,7 +54,7 @@ yarn add cypress-react-selector
 Update `Cypress/support/index.js` file to include the cypress-react-selector commands by adding:
 
 ```js
-import 'cypress-react-selector';
+import 'enhanced-crs';
 ```
 
 ### TSConfig Settings for types
@@ -63,7 +63,7 @@ import 'cypress-react-selector';
 {
   "compilerOptions": {
     "sourceType": "module",
-    "types": ["node", "cypress", "cypress-react-selector"]
+    "types": ["node", "cypress", "enhanced-crs"]
   }
 }
 ```
